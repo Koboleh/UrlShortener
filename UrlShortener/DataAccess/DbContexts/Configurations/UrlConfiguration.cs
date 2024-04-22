@@ -12,6 +12,9 @@ public class UrlConfiguration : IEntityTypeConfiguration<Url>
 
         builder.Property(u => u.Id)
             .ValueGeneratedOnAdd();
+        
+        builder.Property(u => u.Name)
+            .IsRequired();
 
         builder.Property(u => u.ShortUrl)
             .IsRequired();
