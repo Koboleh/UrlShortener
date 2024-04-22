@@ -1,4 +1,5 @@
-﻿using UrlShortener.DataAccess.DbContexts;
+﻿using Microsoft.EntityFrameworkCore;
+using UrlShortener.DataAccess.DbContexts;
 using UrlShortener.DataAccess.Entities;
 using UrlShortener.Interfaces;
 
@@ -16,5 +17,16 @@ public class UserRepository : IUserRepository
     public async Task<User?> GetUserByIdAsync(int id)
     {
         return await _dbContext.Users.FindAsync(id);
+    }
+    
+    public async Task<User?> GetUserByUsernameAsync(string username)
+    {
+        return await _dbContext.Users.FirstOrDefaultAsync(u => u.Username == username);
+    }
+
+    public async Task UpdateUser(User user)
+    {
+        _dbContext.Users.Update(user);
+        await _dbContext.SaveChangesAsync();
     }
 }

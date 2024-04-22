@@ -32,12 +32,9 @@ public class UrlRepository : IUrlRepository
             .AsQueryable();
     }
 
-    public IQueryable<Url> GetUserUrlsAsync(int userId)
+    public async Task<Url?> GetUrlByOriginalUrlAsync(string originalValue)
     {
-        return _dbContext.Urls
-            .Include(u => u.User)
-            .Where(u => u.UserId == userId)
-            .AsQueryable();
+        return await _dbContext.Urls.FirstOrDefaultAsync(u => u.OriginalUrl == originalValue);
     }
 
     public async Task CreateUrlAsync(Url url)
