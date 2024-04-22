@@ -18,6 +18,8 @@ public class UrlConfiguration : IEntityTypeConfiguration<Url>
 
         builder.Property(u => u.ShortUrl)
             .IsRequired();
+
+        builder.HasIndex(u => u.ShortUrl);
         
         builder.Property(u => u.OriginalUrl)
             .IsRequired();
