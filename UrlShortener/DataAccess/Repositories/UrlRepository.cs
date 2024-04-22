@@ -19,6 +19,11 @@ public class UrlRepository : IUrlRepository
     {
         return await _dbContext.Urls.FindAsync(id);
     }
+    
+    public async Task<Url?> GetUrlByShortUrlAsync(int id)
+    {
+        return await _dbContext.Urls.FirstOrDefaultAsync(u => u.Id == id);
+    }
 
     public IQueryable<Url> GetUrlsAsync()
     {
