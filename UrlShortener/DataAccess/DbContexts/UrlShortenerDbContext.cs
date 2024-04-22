@@ -7,7 +7,7 @@ namespace UrlShortener.DataAccess.DbContexts;
 
 public class UrlShortenerDbContext : DbContext
 {
-    public virtual DbSet<User> Users { get; set; }
+    public virtual DbSet<User?> Users { get; set; }
     public virtual DbSet<Url> Urls { get; set; }
 
     public UrlShortenerDbContext(DbContextOptions<UrlShortenerDbContext> options) : base(options)
