@@ -14,5 +14,6 @@ public class AutoMapperProfile : Profile
             .ForMember(dest => dest.OwnerName, 
                 opt => opt.MapFrom(src => src.User.Username));
         CreateMap<UrlRequest, Url>();
+        CreateMap<User, UserResponse>();
     }
 }
