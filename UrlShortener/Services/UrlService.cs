@@ -12,11 +12,13 @@ public class UrlService : IUrlService
 {
     private readonly IMapper _mapper;
     private readonly IUrlRepository _urlRepository;
+    private readonly IHttpContextAccessor _contextAccessor;
 
-    public UrlService(IUrlRepository urlRepository, IMapper mapper)
+    public UrlService(IUrlRepository urlRepository, IMapper mapper, IHttpContextAccessor contextAccessor)
     {
         _urlRepository = urlRepository;
         _mapper = mapper;
+        _contextAccessor = contextAccessor;
     }
 
     public async Task<PaginationResponse<UrlListResponse>> GetUrlsAsync(PaginationRequest request)
@@ -68,6 +70,8 @@ public class UrlService : IUrlService
         if (url != null) throw new ArgumentException($"Short url already exist: {url.ShortUrl}");
 
         var mapperUrl = _mapper.Map<UrlRequest, Url>(request);
+        mapperUrl.ShortUrl = GenerateShortUrl();
+        
         await _urlRepository.CreateUrlAsync(mapperUrl);
     }
 
@@ -77,5 +81,21 @@ public class UrlService : IUrlService
         
         if (url == null) throw new KeyNotFoundException($"Url with id: {id} not found");
         await _urlRepository.DeleteUrlAsync(url);
+    }
+
+    public async Task<bool> IsUrlOwnerAsync(int urlId, int userId)
+    {
+        var url = await _urlRepository.GetUrlByIdAsync(urlId);
+
+        return url != null && url.UserId == userId;
+    }
+
+    private string GenerateShortUrl()
+    {
+        var httpContext = _contextAccessor.HttpContext;
+        var request = httpContext.Request;
+
+        var uniqueValue = Guid.NewGuid();
+        return $"{request.Scheme}://{request.Host}/api/urls/short/{uniqueValue}";
     }
 }

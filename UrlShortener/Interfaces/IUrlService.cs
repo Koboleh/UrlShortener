@@ -10,4 +10,5 @@ public interface IUrlService
     Task<UrlResponse> GetUrlByIdAsync(int id);
     Task CreateUrlAsync(UrlRequest request);
     Task DeleteUrlByIdAsync(int id);
+    Task<bool> IsUrlOwnerAsync(int urlId, int userId);
 }
