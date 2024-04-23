@@ -96,6 +96,6 @@ public class UrlService : IUrlService
         var request = httpContext.Request;
 
         var uniqueValue = Guid.NewGuid();
-        return $"{request.Scheme}://{request.Host}/api/urls/short/{uniqueValue}";
+        return $"{request.Scheme}://{request.Host}/api/{uniqueValue}";
     }
 }
