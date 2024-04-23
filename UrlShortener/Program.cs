@@ -1,5 +1,6 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
@@ -8,6 +9,7 @@ using UrlShortener.DataAccess.DbContexts;
 using UrlShortener.DataAccess.Repositories;
 using UrlShortener.Interfaces;
 using UrlShortener.Middlewares;
+using UrlShortener.Policies.UrlOwnerPolicy;
 using UrlShortener.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -48,6 +50,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("IsUrlOwnerOrAdmin", policy =>
+        policy.AddRequirements(new UrlOwnerRequirement()));
+});
+
+builder.Services.AddScoped<IAuthorizationHandler, UrlOwnerHandler>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
