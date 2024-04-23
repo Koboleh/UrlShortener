@@ -17,12 +17,14 @@ public class UrlRepository : IUrlRepository
 
     public async Task<Url?> GetUrlByIdAsync(int id)
     {
-        return await _dbContext.Urls.FindAsync(id);
+        return await _dbContext.Urls
+            .Include(u => u.User)
+            .FirstOrDefaultAsync(u => u.Id == id);
     }
     
     public async Task<Url?> GetUrlByShortUrlAsync(string shortUrl)
     {
-        return await _dbContext.Urls.FirstOrDefaultAsync(u => u.ShortUrl == shortUrl);
+        return await _dbContext.Urls.Where(u => u.ShortUrl.Contains(shortUrl)).FirstOrDefaultAsync();
     }
 
     public IQueryable<Url> GetUrlsAsync()
