@@ -1,0 +1,59 @@
+.urls-list-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.urls-table {
+    margin-top: 40px;
+    width: 60%;
+}
+
+.urls-table thead td {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.urls-table tbody td {
+    font-size: 16px;
+    padding: 16px;
+    border-bottom: #d3d3d3 1px solid;
+    cursor: pointer;
+}
+.urls-table td a {
+    display: inline-block;
+    max-width: 400px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #000000;
+    cursor: pointer;
+}
+
+.new-url-form {
+    padding: 2rem;
+    width: 60%;
+}
+
+.new-url-form input {
+    padding: 10px;
+    margin-right: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.new-url-form button {
+    padding: 10px;
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.new-url-form button:hover {
+    background-color: #4968cf;
+    color: #ffffff;
+}
