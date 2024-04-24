@@ -40,7 +40,7 @@ public class UrlController : ControllerBase
     }
 
     [Authorize(Policy = "IsUrlOwnerOrAdmin")]
-    [HttpPost("/urls")]
+    [HttpPost("urls")]
     public async Task<IActionResult> CreateUrl(UrlRequest request)
     {
         await _urlService.CreateUrlAsync(request);

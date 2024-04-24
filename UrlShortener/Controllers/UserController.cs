@@ -6,7 +6,7 @@ using UrlShortener.Interfaces;
 namespace UrlShortener.Controllers;
 
 [ApiController]
-[Route("/api/user")]
+[Route("/api")]
 public class UserController : ControllerBase
 {
     private readonly IUserService _userService;
