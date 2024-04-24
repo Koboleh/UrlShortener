@@ -78,6 +78,11 @@ app.UseSerilogRequestLogging(options =>
             LogEventLevel.Verbose : LogEventLevel.Information;
 });
 
+app.UseCors(corsPolicyBuilder => corsPolicyBuilder
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
+    
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
