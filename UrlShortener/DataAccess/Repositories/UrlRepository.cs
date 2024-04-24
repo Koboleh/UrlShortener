@@ -31,6 +31,7 @@ public class UrlRepository : IUrlRepository
     {
         return _dbContext.Urls
             .Include(u => u.User)
+            .OrderByDescending(u => u.Id)
             .AsQueryable();
     }
 
